@@ -177,11 +177,24 @@ process_template() {
   # Create output directory if it doesn't exist
   mkdir -p "$(dirname "$output")"
 
-  # Process template with environment variable substitution
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    # Replace ${VAR} with actual value
-    eval "echo \"$line\"" >> "$output"
-  done < "$template"
+  # Process template with environment variable substitution using envsubst
+  # This preserves JSON formatting and handles special characters correctly
+  if command -v envsubst >/dev/null 2>&1; then
+    envsubst < "$template" > "$output"
+  else
+    # Fallback to sed-based substitution if envsubst is not available
+    local content=$(cat "$template")
+    # Replace each environment variable
+    local var
+    for var in $(compgen -e); do
+      local value="${!var}"
+      # Escape special characters in value for sed
+      value=$(printf '%s\n' "$value" | sed 's/[&/\]/\\&/g')
+      content=$(echo "$content" | sed "s/\${$var}/$value/g")
+      content=$(echo "$content" | sed "s/\$$var/$value/g")
+    done
+    echo "$content" > "$output"
+  fi
 }
 
 ################################################################################
