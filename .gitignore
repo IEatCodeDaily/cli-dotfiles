@@ -5,11 +5,13 @@
 !.env.example
 
 # Actual configuration files (may contain secrets)
+# But keep template files (negation)
 configs/*/*.json
+!configs/*/*.json.template
 configs/*/*.yml
+!configs/*/*.yml.template
 configs/*/*.yaml
-# Keep template files
-*.template
+!configs/*/*.yaml.template
 
 # Backup files
 *.backup.*

@@ -1,0 +1,12 @@
+{
+  "custom_models": [
+    {
+      "model_display_name": "GLM-4.7 [GLM Coding Plan Global]",
+      "model": "glm-4.7",
+      "base_url": "https://api.z.ai/api/coding/paas/v4",
+      "api_key": "${ZAI_API_KEY}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 131072
+    }
+  ]
+}
