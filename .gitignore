@@ -1,0 +1,52 @@
+# Environment files with secrets
+.env
+*.env
+.env.*
+!.env.example
+
+# Actual configuration files (may contain secrets)
+configs/*/*.json
+configs/*/*.yml
+configs/*/*.yaml
+# Keep template files
+*.template
+
+# Backup files
+*.backup.*
+*~
+*.bak
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if any scripts depend on local packages)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+test/
+*.test
