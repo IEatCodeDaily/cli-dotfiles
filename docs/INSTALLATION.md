@@ -121,10 +121,11 @@ cp configs/claude-code/settings.json.template ~/.claude/settings.json
 
 ### Factory CLI
 
-**Installation Method:** npm global package
+**Installation Method:** curl script installer (downloads `droid` binary)
 
 **What gets installed:**
-- `factory` CLI binary
+- `droid` CLI binary at `~/.local/bin/droid`
+- `rg` (ripgrep) binary at `~/.factory/bin/rg`
 - Configuration files at `~/.factory/`
 - Custom droids and skills
 - MCP server configurations
@@ -136,11 +137,15 @@ cp configs/claude-code/settings.json.template ~/.claude/settings.json
 
 **Manual Installation (if script fails):**
 ```bash
-npm install -g @aifn/factory
+curl -fsSL https://app.factory.ai/cli | sh
 # Then manually copy configs
 cp configs/factory-cli/config.json.template ~/.factory/config.json
 cp configs/factory-cli/mcp.json.template ~/.factory/mcp.json
 # Edit and replace ${VARIABLE} placeholders
+
+# Ensure ~/.local/bin is in your PATH
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc  # or ~/.bashrc
+source ~/.zshrc
 ```
 
 ### Gemini CLI
@@ -191,8 +196,8 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # Check Claude Code
 claude --version
 
-# Check Factory CLI
-factory --version
+# Check Factory CLI (droid)
+droid --version
 
 # Check Gemini CLI
 gemini --version
@@ -222,7 +227,7 @@ Or simply close and reopen your terminal.
 claude "Hello, can you help me write a function?"
 
 # Test Factory CLI
-factory --help
+droid --help
 
 # Test Gemini CLI
 gemini --help
@@ -356,8 +361,11 @@ To remove all installed tools and configurations:
 ```bash
 # Uninstall CLI tools
 npm uninstall -g @anthropic-ai/claude-code
-npm uninstall -g @aifn/factory
 npm uninstall -g @google/gemini-cli
+
+# Remove Factory CLI (droid) binary
+rm -f ~/.local/bin/droid
+rm -rf ~/.factory/bin/rg
 
 # Remove configurations (optional - be careful!)
 rm -rf ~/.claude

@@ -235,19 +235,36 @@ install_claude_code() {
 }
 
 install_factory_cli() {
-  log_info "Installing Factory CLI..."
+  log_info "Installing Factory CLI (droid)..."
 
-  if command -v factory &> /dev/null; then
-    log_info "Factory CLI already installed"
+  local install_url="https://app.factory.ai/cli"
+
+  if command -v droid &> /dev/null; then
+    log_info "Factory CLI (droid) already installed"
     if [[ "$INTERACTIVE" == true ]]; then
       read -p "Upgrade to latest version? [y/N]: " -n 1 -r
       echo
       if [[ $REPLY =~ ^[Yy]$ ]]; then
-        run_cmd npm install -g @aifn/factory
+        log_info "Running Factory CLI installer..."
+        if [[ "$DRY_RUN" == true ]]; then
+          echo -e "${YELLOW}[DRY RUN]${NC} curl -fsSL $install_url | sh"
+        else
+          curl -fsSL "$install_url" | sh
+        fi
       fi
     fi
   else
-    run_cmd npm install -g @aifn/factory
+    log_info "Downloading and installing Factory CLI..."
+    if [[ "$DRY_RUN" == true ]]; then
+      echo -e "${YELLOW}[DRY RUN]${NC} curl -fsSL $install_url | sh"
+    else
+      # Check for curl
+      if ! command -v curl >/dev/null 2>&1; then
+        log_error "curl is required but not installed"
+        return 1
+      fi
+      curl -fsSL "$install_url" | sh
+    fi
   fi
 
   # Configure Factory CLI

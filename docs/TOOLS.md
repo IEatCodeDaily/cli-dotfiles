@@ -117,9 +117,13 @@ claude "Review the changes in PR #123"
 
 ### Installation
 
+Factory CLI is installed via a curl script that downloads the `droid` binary:
+
 ```bash
-npm install -g @aifn/factory
+curl -fsSL https://app.factory.ai/cli | sh
 ```
+
+The binary will be installed to `~/.local/bin/droid`. Make sure `~/.local/bin` is in your PATH.
 
 ### Configuration Files
 
@@ -181,27 +185,29 @@ Custom skills for extending Factory's capabilities.
 
 ```bash
 # Start Factory CLI
-factory
+droid
 
 # Use custom model
-factory --model glm-4.7 "Help me with this task"
+droid --model glm-4.7 "Help me with this task"
 
 # List available MCP servers
-factory mcp list
+droid mcp list
 
 # Use specific MCP server
-factory "Search the web for X" --mcp web-search-prime
+droid "Search the web for X" --mcp web-search-prime
 ```
 
 ### Tips and Tricks
 
 1. **Model Selection**: Use `--model` flag to switch between custom models.
 
-2. **MCP Server Debugging**: Check MCP server status with `factory mcp status`.
+2. **MCP Server Debugging**: Check MCP server status with `droid mcp status`.
 
 3. **Custom Droids**: Add your own droids to `~/.factory/droids/` for specialized tasks.
 
 4. **Environment Variables**: MCP servers can use environment variables for authentication.
+
+5. **Binary Location**: The `droid` binary is installed at `~/.local/bin/droid` - ensure this is in your PATH.
 
 ## Gemini CLI
 
@@ -462,7 +468,7 @@ chmod -R 755 ~/.claude/
 
 **Solution:** Check MCP server status:
 ```bash
-factory mcp status
+droid mcp status
 # Check if the server is disabled in mcp.json
 ```
 
@@ -472,6 +478,16 @@ factory mcp status
 ```bash
 cat ~/.factory/config.json | grep api_key
 cat ~/.factory/config.json | grep base_url
+```
+
+**Problem:** `droid: command not found`
+
+**Solution:** Ensure `~/.local/bin` is in your PATH:
+```bash
+echo $PATH | grep -o ~/.local/bin
+# If not found, add to PATH:
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc  # or ~/.bashrc
+source ~/.zshrc
 ```
 
 ### Gemini CLI

@@ -7,7 +7,7 @@ This repository contains portable configurations and automated setup scripts for
 ## 🚀 Supported Tools
 
 - **Claude Code** - Anthropic's official AI coding assistant CLI
-- **Factory CLI** - Advanced AI CLI with custom models and MCP support
+- **Factory CLI** - Advanced AI CLI with custom models and MCP support (command: `droid`)
 - **Gemini CLI** - Google's Gemini AI CLI
 - **Shell Configs** - Zsh and Bash configurations with useful aliases and plugins
 
@@ -25,7 +25,8 @@ This repository contains portable configurations and automated setup scripts for
 
 - Unix-like system (Linux, macOS, WSL)
 - Bash shell
-- Node.js and npm (for CLI tool installation)
+- Node.js and npm (for Claude Code and Gemini CLI)
+- curl (for Factory CLI installation)
 - Git (for cloning this repo)
 
 ## 🚀 Quick Start
